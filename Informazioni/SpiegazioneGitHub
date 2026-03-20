@@ -26,9 +26,19 @@ ESEGUIRE UN'AGGIUNTA FILE;
 
 ------------
 
-~ricevere i file aggiornati / richiesta pull:
+~Ricevere i file aggiornati / richiesta pull:
 
 ANDARE SU VOCE "PULL REQUEST";
 APRIRE VOCE "NEW PULL REQUEST";
 SELEZIONARE RAMO "MAIN" O ZONA CHE VOLETE RICEVERE;
 
+------------
+
+~Scaricare file o un tutto
+SCEGLIERE FILE APRENDOLO;
+CLICCARE L'ICONA "DOWNLOAD" E INSTALLARE
+
+oppure
+
+CLICCARE " <> code ";
+CLICCARE "Download ZIP";
