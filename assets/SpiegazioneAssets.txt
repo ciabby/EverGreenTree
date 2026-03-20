@@ -1,0 +1,17 @@
+Cartella con all'interno tutti i dati per il sito.
+es:
+immagini, video, font ecc...
+
+
+Spiegazione utilizzo:
+-----------
+
+per ogni dato creare una cartella diversa.
+es:
+per tutte immagini creare una cartella "immagini" ecc...
+
+
+Per qualsiasi Informazione contattarmi senza problemi
+-----------
+
+
