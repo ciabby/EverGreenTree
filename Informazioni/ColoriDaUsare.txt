@@ -1,0 +1,20 @@
+Spiegazione Colori Usati e da Usare:
+
+spiegazione di tutti i colori che ho usato:
+
+schermata home:
+background = #F1F8E9;
+testo = #263238;
+
+Barra di sotto e di lato = #4CAF50;
+
+Rombo non cliccato = #4CAF50;
+Rombo cliccato = #69DB7C;
+
+Marker Alberi piazzati = #8d6E63;
+
+Form "Aggiunta Alberi":
+background = effetto vetro //sofia sa come
+testo = #263238;
+Tasti = #2E7D32; 
+
