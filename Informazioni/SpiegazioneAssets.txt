@@ -1,4 +1,4 @@
-Cartella con all'interno tutti i dati per il sito.
+Creare una cartella "assets" con all'interno tutti i dati per il sito nel main.
 es:
 immagini, video, font ecc...
 
