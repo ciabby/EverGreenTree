@@ -2,7 +2,7 @@ Spiegazione Funzionamento GitHub
 
 !! Prima Di Ogni Cosa Fare Sempre Una Richiesta Di Pull !!
 
-~Aggiunta File:
+~Aggiunta File / push :
 
 ADD FILE;
 UPLOAD FILE;
@@ -10,3 +10,24 @@ SCEGLIERE IL FILE;
 COMMIT MASSAGE; //dover compilare obbligatoriamente con qualcosa
 ESTENDED DESCRIPTION; //descrizione del file o cosi via
 
+------------
+
+~Modifica File:
+
+SCEGLIERE IL FILE;
+APRIRE IL FILE;
+SELEZIONARE A DESTRA "EDIT THIS FILE";
+
+oppure
+
+APRIRE IL FILE DAL DESKTOP;
+MODIFICARE IL FILE;
+ESEGUIRE UN'AGGIUNTA FILE;
+
+------------
+
+~ricevere i file aggiornati / richiesta pull:
+
+ANDARE SU VOCE "PULL REQUEST";
+SELEZIONARE RAMO "MAIN" O ZONA CHE VOLETE RICEVERE;
+ESEGUIRE RICHIESTA DI PULL;
