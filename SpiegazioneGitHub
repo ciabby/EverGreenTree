@@ -1,6 +1,12 @@
 Spiegazione Funzionamento GitHub
 
+!! Prima Di Ogni Cosa Fare Sempre Una Richiesta Di Pull !!
+
 ~Aggiunta File:
 
 ADD FILE;
+UPLOAD FILE;
+SCEGLIERE IL FILE;
+COMMIT MASSAGE; //dover compilare obbligatoriamente con qualcosa
+ESTENDED DESCRIPTION; //descrizione del file o cosi via
 
