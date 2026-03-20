@@ -1,0 +1,82 @@
+<html>
+<head>
+<title>EverGreenTree</title>
+<style>
+    body
+    {
+    background-color: #F1F8E9;
+    color: #263238;
+    }
+    #welcome
+    {
+        color: #263238;
+        position: absolute;
+        left: 1465px;
+    }
+    #LinSotto
+    {
+        width: 380px;
+        height: 2px;
+        background-color: #4CAF50;
+        position: absolute;
+        top: 60px;
+        left: 1470px;
+    }
+    #LinLato
+    {
+        width: 2px;
+        height: 50px;
+        background-color: #4CAF50;
+        position: absolute;
+        top: 12px;
+        left: 1850px;
+    }
+    #diamante 
+    {
+        width: 50px;
+        height: 50px;
+        background-color: #4CAF50;
+        position: absolute;
+        left: 25px;
+        top: 25px;
+        transform: rotate(45deg);
+        text-align: center;
+        line-height: 45px;
+        color: white;
+        font-weight: bold;  
+        font-size: 30px;
+        animation: rotateDiamond 1s ease-in-out;
+    }
+    #mappa
+    {
+        background-color: antiquewhite;
+        width: 800px;
+        height: 400px;
+        position: absolute;
+        top: 200px;
+        left: 465px;
+        text-align: center;
+        line-height: 350px;
+    }
+</style>
+</head>
+<body>
+    <h1 id="welcome">Welcome to EverGreenTree   &#127795;</h1>
+    <hr id="LinSotto">
+    <hr id="LinLato">
+    <div id="diamante" onclick="menu()"> | </div>
+    <!-- il div "diamante" sara un div che poi si trasforma in menu con un click-->
+     <div id="mappa"> Mappa Da Visualizzare</div>
+    <script>
+        function menu() 
+        {
+            document.getElementById("diamante").style.transform = "rotate(0deg)";
+            document.getElementById("diamante").style.height = "800px";
+            document.getElementById("diamante").style.width = "250px";
+            document.getElementById("diamante").textContent = "Menu";
+            document.getElementById("diamante").style.borderRadius = "25px";
+            document.getElementById("diamante").style.backgroundColor = "#69DB7C";
+        }
+    </script>
+</body>
+</html>  
