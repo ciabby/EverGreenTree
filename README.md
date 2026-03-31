@@ -1,21 +1,32 @@
-Progetto di TPSIT: "EverGreenTree".
-
-Group:
-Ciabby
-Sofa
-Mrtr
-Demetra
-
-Idea:
-realizzare un App Web che permette di aggiungere a un JSON una serie di piante o alberi
-e visualizzarli all'interno di una mappa.
-
-Materiale:
-HTML, CSS, JAVASCRIPT, UMAP, JSON
+#Progetto "GreenGo:
+--
 
 
-link sito:
-https://ciabby.github.io/EverGreenTree/
+|Collaboratori|Attività|Stato|
+|:---:|:---:|:---:|
+|Sofia|Form "incrementa"|In Corso|
+|Fabio|Aiuto Generale|In Corso|
+|Valeria|JavaScript|In Attesa|
+|Manu|Mappa|Fine|
 
+# __idea:__ 
 
-BuonLavoro A Tutti <3.
+### Creare un'app capace di:
+
+## - Piazzare Alberi 
+
+## - Rimuovere Alberi
+
+## - Visualizzare Alberi Sulla Mappa
+
+__Materiale usato:__
+
+* HTML
+
+* CSS
+
+* JAVASCRIPT
+
+* UMAP
+
+* GOOGLE DOCS
