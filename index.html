@@ -2,7 +2,6 @@
 <html>
 <head>
 <title>EverGreenTree</title>
-
 <style>
 html, body {
     height: 100%;
@@ -17,26 +16,6 @@ html, body {
     left: 38%;
 }
 
-/* Linee */
-#LinSotto {
-    width: 23%;
-    height: 1%;
-    background-color: #4CAF50;
-    position: absolute;
-    top: 5.5%;
-    left: 37.5%;
-}
-
-#LinLato {
-    width: 0.5%;
-    height: 5%;
-    background-color: #4CAF50;
-    position: absolute;
-    top: 1.5%;
-    left: 60.5%;
-}
-
-/* Diamante / Menu */
 #diamante {
     width: 6.5%;      /* larghezza diamante chiuso */
     height: 12%;      /* altezza diamante chiuso */
@@ -55,13 +34,51 @@ html, body {
     overflow: hidden;
 }
 
-/* Menu aperto: testo in alto */
-#diamante.menu-aperto {
+#menu-content {
+    display: none;
+    flex-direction: column;
     align-items: flex-start;
-    padding-top: 1%; /* spazio interno in alto */
+    justify-content: flex-start;
+    width: 90%;
+    margin-left: 5%;
 }
 
-/* Mappa */
+#diamante.menu-aperto #menu-content {
+    display: flex;
+}
+
+#menu-title {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    text-align: center;
+    color: #F1F8E9;
+    width: 95%; 
+}
+
+#menu-content label {
+    margin-top: 5px;
+    font-size: 0.9em;
+}
+
+#menu-content input {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box; /*include il bordo nel calcolo della larghezza, così non fuoriesce*/
+}
+
+#menu-content button {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+
+
 #mappa {
     background-color: antiquewhite;
     width: 50%;
@@ -72,53 +89,88 @@ html, body {
 }
 </style>
 </head>
-
 <body>
 
 <h1 id="welcome">Welcome to EverGreenTree 🌳</h1>
-<hr id="LinSotto">
-<hr id="LinLato">
 
-<div id="diamante" onclick="menu()"></div>
+<div id="diamante">
+    <div id="menu-content">
+        <div id="menu-title">Menu</div>
+        <div id="form-aggiungi">
+        
+        <label>Nome:</label>
+        <input type="text" id="nome" placeholder="Inserisci il tuo nome">
+        
+        <label>Tipologia:</label>
+        <input type="text" id="Tipo" placeholder="Inserisci il tipo">
+        
+        <label>Data Piazzamento:</label>
+        <input type="date" id="DataPiazzamento" placeholder="Inserisci la data del piazzamento">
+        
+        <label>Latitudine:</label>
+        <input type="text" id="Latitudine" placeholder="Inserisci la latitudine">
+        
+        <label>Longitudine:</label>
+        <input type="text" id="Longitudine" placeholder="Inserisci la longitudine">
+        
+        <button id="submit">Invia</button>
+        </div>
+    </div>
+</div>
 
 <div id="mappa"> 
     <iframe style="width: 100%; height: 100%; border: 0;" allowfullscreen allow="geolocation"
-    src="//umap.openstreetmap.fr/it/map/evergreentree_1378856?...">
+    src="//umap.openstreetmap.fr/it/map/evergreentree_1378856?scaleControl=false&miniMap=false&scrollWheelZoom=true&zoomControl=true&editMode=disabled&moreControl=false&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=true&onLoadPanel=none&captionBar=false&captionMenus=true">
     </iframe>
 </div>
 
 <script>
+function aggiungiEvento(elemento, tipo, funzione) {
+    elemento.addEventListener(tipo, funzione);
+}
+
 let aperto = false;
-const d = document.getElementById("diamante");
+const diamante = document.getElementById("diamante");
+const menuContent = document.getElementById("menu-content");
+const submitBtn = document.getElementById("submit");
 
-/* dimensioni chiuso */
-const widthClosed = "6.5%";
-const heightClosed = "12%";
-
-function menu() {
+// Clic sul diamante per aprire/chiudere
+aggiungiEvento(diamante, "click", function() {
     if (!aperto) {
-        // Menu aperto
-        d.classList.add("menu-aperto"); /* aggiungo una classe css all'elemento diamante*/
-        d.style.transform = "rotate(0deg)";
-        d.style.width = "25%";
-        d.style.height = "90%";
-        d.textContent = "Menu";
-        d.style.borderRadius = "2%";
-        d.style.backgroundColor = "#69DB7C";
+        diamante.classList.add("menu-aperto");
+        diamante.style.transform = "rotate(0deg)";
+        diamante.style.width = "25%";
+        diamante.style.height = "90%";
+        diamante.style.borderRadius = "2%";
+        diamante.style.backgroundColor = "#69DB7C";
         aperto = true;
-    } 
-    else {
-        // Diamante chiuso
-        d.classList.remove("menu-aperto");
-        d.style.transform = "rotate(45deg)";
-        d.style.width = widthClosed;
-        d.style.height = heightClosed;
-        d.textContent = "";
-        d.style.borderRadius = "0%";
-        d.style.backgroundColor = "#4CAF50";
+    } else {
+        diamante.classList.remove("menu-aperto");
+        diamante.style.transform = "rotate(45deg)";
+        diamante.style.width = "6.5%";
+        diamante.style.height = "12%";
+        diamante.style.borderRadius = "0%";
+        diamante.style.backgroundColor = "#4CAF50";
         aperto = false;
     }
-}
+});
+
+// Ferma la propagazione dei click dentro il menu
+aggiungiEvento(menuContent, "click", function(event) {
+    event.stopPropagation(); /*serve per selezionare le cose giuste se sono contenute in altri oggetti*/
+    /*es gli input che sono contenuti dentro il rombo*/
+});
+
+// Pulsante invio
+aggiungiEvento(submitBtn, "click", function(event){
+    event.stopPropagation();
+    alert("ID: " + document.getElementById("id").value +
+      /* \n va a capo*/ "\nNome: " + document.getElementById("nome").value + /*concatena stringhe*/
+          "\nTipologia: " + document.getElementById("Tipo").value +
+          "\nData Piazzamento: " + document.getElementById("DataPiazzamento").value +
+          "\nLatitudine: " + document.getElementById("Latitudine").value +
+          "\nLongitudine: " + document.getElementById("Longitudine").value);
+});
 </script>
 
 </body>
