@@ -112,6 +112,8 @@ html, body {
         
         <label>Longitudine:</label>
         <input type="text" id="Longitudine" placeholder="Inserisci la longitudine">
+        <label>coordinate:</label>
+        <input type="button" id="coordinate" onclick="rilevaEInviaPosizione()" placeholder="Inserisci le coordinate automaticamente">
         
         <button id="submit">Invia</button>
         </div>
@@ -125,6 +127,21 @@ html, body {
 </div>
 
 <script>
+    function rilevaEInviaPosizione() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            
+            console.log("Coordinate rilevate:", lat, lng);
+            inviaAlDatabase(lat, lng);
+        }, function(error) {
+            alert("Errore nel rilevamento della posizione: " + error.message);
+        });
+    } else {
+        alert("Il tuo browser non supporta la geolocalizzazione.");
+    }
+}
 function aggiungiEvento(elemento, tipo, funzione) {
     elemento.addEventListener(tipo, funzione);
 }
