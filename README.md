@@ -4,9 +4,9 @@
 
 |Collaboratori|Attività|Stato|
 |:---:|:---:|:---:|
-|Sofia|Form "incrementa"|In Corso|
-|Fabio|Aiuto Generale|In Corso|
-|Valeria|JavaScript|In Attesa|
+|Sofia|Form "incrementa"|Fine|
+|Fabio|Aiuto Generale e creazione pptx|In Corso|
+|Valeria|JavaScript|In Corso|
 |Manu|Mappa|Fine|
 
 # __idea:__ 
