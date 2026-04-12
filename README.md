@@ -6,7 +6,7 @@
 |:---:|:---:|:---:|
 |Sofia|Form "incrementa"|Fine|
 |Fabio|Aiuto Generale e creazione pptx|In Corso|
-|Valeria|JavaScript|In Corso|
+|Valeria|JavaScript|Fine|
 |Manu|Mappa|Fine|
 
 # __idea:__ 
