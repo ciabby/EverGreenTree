@@ -17,8 +17,8 @@ html, body {
 }
 
 #diamante {
-    width: 6.5%;      /* larghezza diamante chiuso */
-    height: 12%;      /* altezza diamante chiuso */
+    width: 6.5%;
+    height: 12%;
     background-color: #4CAF50;
     position: absolute;
     left: 2%;
@@ -26,7 +26,7 @@ html, body {
     transform: rotate(45deg);
     display: flex;
     justify-content: center;
-    align-items: center; /* testo centrato quando chiuso */
+    align-items: center;
     cursor: pointer;
     color: #F1F8E9;
     font-size: x-large;
@@ -65,7 +65,7 @@ html, body {
     width: 100%;
     padding: 5px;
     margin-bottom: 10px;
-    box-sizing: border-box; /*include il bordo nel calcolo della larghezza, così non fuoriesce*/
+    box-sizing: border-box;
 }
 
 #menu-content button {
@@ -77,7 +77,6 @@ html, body {
     margin-top: 10px;
     width: 100%;
 }
-
 
 #mappa {
     background-color: antiquewhite;
@@ -97,25 +96,24 @@ html, body {
     <div id="menu-content">
         <div id="menu-title">Menu</div>
         <div id="form-aggiungi">
-        
-        <label>Nome:</label>
-        <input type="text" id="nome" placeholder="Inserisci il tuo nome">
-        
-        <label>Tipologia:</label>
-        <input type="text" id="Tipo" placeholder="Inserisci il tipo">
-        
-        <label>Data Piazzamento:</label>
-        <input type="date" id="DataPiazzamento" placeholder="Inserisci la data del piazzamento">
-        
-        <label>Latitudine:</label>
-        <input type="text" id="Latitudine" placeholder="Inserisci la latitudine">
-        
-        <label>Longitudine:</label>
-        <input type="text" id="Longitudine" placeholder="Inserisci la longitudine">
-        <label>coordinate:</label>
-        <input type="button" id="coordinate" onclick="rilevaEInviaPosizione()" placeholder="Inserisci le coordinate automaticamente">
-        
-        <button id="submit">Invia</button>
+            <label>Nome:</label>
+            <input type="text" id="nome" placeholder="Inserisci il tuo nome" required>
+            
+            <label>Tipologia:</label>
+            <input type="text" id="Tipo" placeholder="Inserisci il tipo" required>
+            
+            <label>Data Piazzamento:</label>
+            <input type="date" id="DataPiazzamento" required>
+
+            <label>Latitudine:</label>
+            <input type="text" id="Latitudine" placeholder="Inserisci la latitudine">
+            
+            <label>Longitudine:</label>
+            <input type="text" id="Longitudine" placeholder="Inserisci la longitudine">
+
+            <button onclick="rilevaPosizione()">Rileva Coordinate</button>
+            
+            <button id="submit">Invia</button>
         </div>
     </div>
 </div>
@@ -127,12 +125,14 @@ html, body {
 </div>
 
 <script>
-    function rilevaEInviaPosizione() {
+    function rilevaPosizione() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             const lat = position.coords.latitude;
             const lng = position.coords.longitude;
             
+            document.getElementById("Latitudine").value = lat;
+            document.getElementById("Longitudine").value = lng;
             console.log("Coordinate rilevate:", lat, lng);
             inviaAlDatabase(lat, lng);
         }, function(error) {
@@ -174,19 +174,40 @@ aggiungiEvento(diamante, "click", function() {
 
 // Ferma la propagazione dei click dentro il menu
 aggiungiEvento(menuContent, "click", function(event) {
-    event.stopPropagation(); /*serve per selezionare le cose giuste se sono contenute in altri oggetti*/
-    /*es gli input che sono contenuti dentro il rombo*/
+    event.stopPropagation();
 });
 
 // Pulsante invio
-aggiungiEvento(submitBtn, "click", function(event){
+aggiungiEvento(submitBtn, "click", async function(event){
     event.stopPropagation();
-    alert("ID: " + document.getElementById("id").value +
-      /* \n va a capo*/ "\nNome: " + document.getElementById("nome").value + /*concatena stringhe*/
-          "\nTipologia: " + document.getElementById("Tipo").value +
-          "\nData Piazzamento: " + document.getElementById("DataPiazzamento").value +
-          "\nLatitudine: " + document.getElementById("Latitudine").value +
-          "\nLongitudine: " + document.getElementById("Longitudine").value);
+    
+    const formData = new FormData();
+    formData.append('nome', document.getElementById("nome").value);
+    formData.append('tipologia', document.getElementById("Tipo").value);
+    formData.append('datapiazzamento', document.getElementById("DataPiazzamento").value);
+    formData.append('Latitudine',lat);
+    formData.append('Longitudine',lng);
+    
+    try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbyPe3AvjUAYswjvMjbpF_0wGevywnU_kR0liojufq1D_A0fNUuzoTzIMHivEaE-tFNTYw/exec', {
+            method: 'POST',
+            body: formData
+        });
+        const result = await response.json();
+        
+        if (result.result === 'success') {
+            alert('Albero' + ' salvato nella riga ' + result.row + '!');
+            document.getElementById("nome").value = '';
+            document.getElementById("Tipo").value = '';
+            document.getElementById("DataPiazzamento").value = '';
+            document.getElementById("Latitudine").value = '';
+            document.getElementById("Longitudine").value = '';
+        } else {
+            alert('Errore: ' + result.error);
+        }
+    } catch(error) {
+        alert('Errore connessione: ' + error);
+    }
 });
 </script>
 
