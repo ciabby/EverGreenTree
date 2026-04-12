@@ -1,0 +1,63 @@
+var sheetName = 'DB';
+var scriptProp = PropertiesService.getScriptProperties();
+
+function intialSetup() {
+  var activeSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  scriptProp.setProperty('key', activeSpreadsheet.getId());
+}
+
+function doPost(e) {
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+
+  try {
+    var doc = SpreadsheetApp.openById(scriptProp.getProperty('key'));
+    var sheet = doc.getSheetByName(sheetName);
+
+    // Crea campi
+    if (sheet.getLastRow() === 0) {
+      sheet.getRange(1, 1, 1, 4).setValues([[
+        'CodiceAlbero', 'Nome', 'Tipologia', 'DataPiazzamento'
+      ]]);
+    }
+
+    var nextRow = sheet.getLastRow() + 1;
+
+    // ID Albero autoincrement
+    var lastId = 0;
+    if (nextRow > 2) {
+      var lastCell = sheet.getRange(nextRow - 1, 1).getValue();
+      if (typeof lastCell === 'number' && !isNaN(lastCell)) {
+        lastId = lastCell;
+      }
+    }
+   var newId = nextRow - 1;
+
+    var dataInserita = e.parameter.datapiazzamento || '';
+
+    var newRow = [
+      newId,                        
+      e.parameter.nome || '',       
+      e.parameter.tipologia || '',   
+      dataInserita            
+    ];
+
+    sheet.getRange(nextRow, 1, 1, 4).setValues([newRow]);
+
+    sheet.getRange(nextRow, 1).setNumberFormat('0');
+
+    // Formatta colonna Data come data italiana
+    sheet.getRange(nextRow, 4).setNumberFormat('dd/mm/yyyy');
+
+    return ContentService.createTextOutput(
+      JSON.stringify({result: 'success', row: nextRow, id: newId})
+    ).setMimeType(ContentService.MimeType.JSON);
+
+  } catch (error) {
+    return ContentService.createTextOutput(
+      JSON.stringify({result: 'error', error: error.toString()})
+    ).setMimeType(ContentService.MimeType.JSON);
+  } finally {
+    lock.releaseLock();
+  }
+}
