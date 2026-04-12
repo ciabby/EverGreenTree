@@ -1,0 +1,15 @@
+function rilevaEInviaPosizione() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            
+            console.log("Coordinate rilevate:", lat, lng);
+            inviaAlDatabase(lat, lng);
+        }, function(error) {
+            alert("Errore nel rilevamento della posizione: " + error.message);
+        });
+    } else {
+        alert("Il tuo browser non supporta la geolocalizzazione.");
+    }
+}
