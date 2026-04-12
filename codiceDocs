@@ -7,6 +7,8 @@ function intialSetup() {
 }
 
 function doPost(e) {
+  console.log('TUTTI parametri:', JSON.stringify(e.parameter)); 
+  
   var lock = LockService.getScriptLock();
   lock.tryLock(10000);
 
@@ -14,10 +16,10 @@ function doPost(e) {
     var doc = SpreadsheetApp.openById(scriptProp.getProperty('key'));
     var sheet = doc.getSheetByName(sheetName);
 
-    // Crea campi
+    // Crea campi (6 colonne totali)
     if (sheet.getLastRow() === 0) {
-      sheet.getRange(1, 1, 1, 4).setValues([[
-        'CodiceAlbero', 'Nome', 'Tipologia', 'DataPiazzamento'
+      sheet.getRange(1, 1, 1, 6).setValues([[
+        'CodiceAlbero', 'Nome', 'Tipologia', 'DataPiazzamento', 'Longitudine', 'Latitudine'
       ]]);
     }
 
@@ -31,23 +33,31 @@ function doPost(e) {
         lastId = lastCell;
       }
     }
-   var newId = nextRow - 1;
+    var newId = lastId + 1;  // Incrementa correttamente l'ID
 
     var dataInserita = e.parameter.datapiazzamento || '';
 
+    // Aggiungi Longitudine e Latitudine (colonne 5 e 6)
     var newRow = [
-      newId,                        
-      e.parameter.nome || '',       
-      e.parameter.tipologia || '',   
-      dataInserita            
+      newId,                          // Colonna 1
+      e.parameter.nome || '',         // Colonna 2  
+      e.parameter.tipologia || '',    // Colonna 3
+      dataInserita,                   // Colonna 4
+      e.parameter.Longitudine || '',  // Colonna 5
+      e.parameter.Latitudine || ''    // Colonna 6
     ];
 
-    sheet.getRange(nextRow, 1, 1, 4).setValues([newRow]);
+    // Scrivi tutte e 6 le colonne
+    sheet.getRange(nextRow, 1, 1, 6).setValues([newRow]);
 
-    sheet.getRange(nextRow, 1).setNumberFormat('0');
+    sheet.getRange(nextRow, 1).setNumberFormat('0');  // ID albero
 
     // Formatta colonna Data come data italiana
     sheet.getRange(nextRow, 4).setNumberFormat('dd/mm/yyyy');
+    
+    // Formatta Longitudine e Latitudine con 6 decimali
+    sheet.getRange(nextRow, 5).setNumberFormat('0.000000');  // Longitudine
+    sheet.getRange(nextRow, 6).setNumberFormat('0.000000');  // Latitudine
 
     return ContentService.createTextOutput(
       JSON.stringify({result: 'success', row: nextRow, id: newId})
