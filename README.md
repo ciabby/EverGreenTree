@@ -1,25 +1,33 @@
-# Progetto "GreenGo:
---
+# Progetto "GreenGo":
 
 
 |Collaboratori|Attività|Stato|
 |:---:|:---:|:---:|
-|Sofia|Form "incrementa"|Fine|
-|Fabio|Aiuto Generale e creazione pptx|In Corso|
+|Sofia|Sviluppo grafica sito|Fine|
+|Fabio|Aiuto Generale e Sviluppo Sito|Fine|
 |Valeria|JavaScript|Fine|
-|Manu|Mappa|Fine|
+|Manu|Mappa e Coordinate|Fine|
 
 # __idea:__ 
 
-### Creare un'app capace di:
+## spiegazione:
+
+###### Per un progetto scolastico dobbiamo realizzare una Web App
+###### sotto commissione della azienda agricola "EverGreenTree"
+
+###### Quest'app è possibile adattarla a qualsiasi azienda che ha bisogno 
+###### di una Web App che salva i dati su un DB.
+
+
+### Deve essere un'app capace di:
 
 ## - Piazzare Alberi 
 
-## - Rimuovere Alberi
-
 ## - Visualizzare Alberi Sulla Mappa
 
-__Materiale usato:__
+__Linguaggi e software usati:__
+
+### Linguaggi:
 
 * HTML
 
@@ -27,9 +35,13 @@ __Materiale usato:__
 
 * JAVASCRIPT
 
+### Software:
+
 * UMAP
+
+### Per il DB
 
 * GOOGLE DOCS
 
-__Link:__ 
+__Link all'host del sito:__ 
 https://ciabby.github.io/EverGreenTree/
