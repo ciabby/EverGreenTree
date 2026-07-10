@@ -1,4 +1,4 @@
-# Progetto "GreenGo":
+# Progetto "GreenGo" :
 
 
 |Collaboratori|Attività|Stato|
@@ -10,7 +10,7 @@
 
 # __idea:__ 
 
-## spiegazione:
+## spiegazione :
 
 ###### Per un progetto scolastico dobbiamo realizzare una Web App
 ###### sotto commissione della azienda agricola "EverGreenTree"
@@ -21,9 +21,9 @@
 
 ### Deve essere un'app capace di:
 
-## - Piazzare Alberi 
+## * Piazzare Alberi 
 
-## - Visualizzare Alberi Sulla Mappa
+## * Visualizzare Alberi Sulla Mappa
 
 __Linguaggi e software usati:__
 
@@ -39,7 +39,7 @@ __Linguaggi e software usati:__
 
 * UMAP
 
-### Per il DB
+### Utilizzo del DB:
 
 * GOOGLE DOCS
 
