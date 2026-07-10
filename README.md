@@ -21,9 +21,9 @@
 
 ### Deve essere un'app capace di:
 
-## * Piazzare Alberi 
+* ## Piazzare Alberi 
 
-## * Visualizzare Alberi Sulla Mappa
+* ## Visualizzare Alberi Sulla Mappa
 
 __Linguaggi e software usati:__
 
