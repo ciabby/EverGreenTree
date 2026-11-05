@@ -238,7 +238,7 @@ aggiungiEvento(submitBtn, "click", async function(event){
     console.log("Invio:", Object.fromEntries(formData));
     
     try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbyjYqR-diTvexqPVt65frfAfbs-zlL2WM7GCZ9OKqjk0ga2joa5B4f64rdVn69SoA8p/exec', {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbw7szDXcDUg58l-uePkau2qIwV9TJF9oUrYNP2E3nQT42vTBAX1PXJgMLAttzMlq7QX/exec', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},  // ← OBBLIGATORIO
             body: formData
