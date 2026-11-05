@@ -174,22 +174,57 @@ html, body {
 </div>
 
 <script>
-    function rilevaPosizione() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw7szDXcDUg58l-uePkau2qIwV9TJF9oUrYNP2E3nQT42vTBAX1PXJgMLAttzMlq7QX/exec';
+
+    async function rilevaEInviaPosizione() {
+        if (!navigator.geolocation) {
+            alert("Il tuo browser non supporta la geolocalizzazione.");
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(async function(position) {
             const lat = position.coords.latitude;
             const lng = position.coords.longitude;
             
             document.getElementById("Latitudine").value = lat;
             document.getElementById("Longitudine").value = lng;
             console.log("Coordinate rilevate:", lat, lng);
+
+            // Prepara i dati da inviare
+            const formData = new URLSearchParams();
+            formData.append('nome', document.getElementById("nome").value);
+            formData.append('tipologia', document.getElementById("Tipo").value);
+            formData.append('datapiazzamento', document.getElementById("DataPiazzamento").value);
+            formData.append('Latitudine', lat);
+            formData.append('Longitudine', lng);
+
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    body: formData
+                });
+                const result = await response.json();
+                console.log("Server:", result);
+                
+                if (result.result === 'success') {
+                    alert('Albero salvato con successo alla riga ' + result.row + '!');
+                    // Pulisci i campi se desideri
+                    document.getElementById("nome").value = '';
+                    document.getElementById("Tipo").value = '';
+                    document.getElementById("DataPiazzamento").value = '';
+                } else {
+                    alert('Errore dal server: ' + result.error);
+                }
+            } catch(error) {
+                console.error(error);
+                alert('Errore di connessione: ' + error);
+            }
+
         }, function(error) {
             alert("Errore nel rilevamento della posizione: " + error.message);
         });
-    } else {
-        alert("Il tuo browser non supporta la geolocalizzazione.");
     }
-}
 function aggiungiEvento(elemento, tipo, funzione) {
     elemento.addEventListener(tipo, funzione);
 }
