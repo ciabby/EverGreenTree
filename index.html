@@ -137,7 +137,7 @@ html, body {
 }
 </style>
 </head>
-<body onload="rilevaPosizione()">
+<body onload="rilevaEInviaPosizione()">
 
 <h1 id="welcome">Welcome to EverGreenTree 🌳</h1>
 
@@ -155,14 +155,12 @@ html, body {
             <input type="date" id="DataPiazzamento" required>
 
             <label>Latitudine:</label>
-            <input type="text" id="Latitudine" placeholder="Inserisci la latitudine">
+            <input type="text" id="Latitudine" placeholder="Inserisci la latitudine" readonly>
             
             <label>Longitudine:</label>
-            <input type="text" id="Longitudine" placeholder="Inserisci la longitudine">
+            <input type="text" id="Longitudine" placeholder="Inserisci la longitudine" readonly>
 
-            <button onclick="rilevaPosizione()">Rileva Coordinate</button>
-            
-            <button id="submit">Invia</button>
+            <button onclick="rilevaEInviaPosizione()">Aggiorna e Invia Posizione</button>
         </div>
     </div>
 </div>
@@ -225,78 +223,30 @@ html, body {
             alert("Errore nel rilevamento della posizione: " + error.message);
         });
     }
-function aggiungiEvento(elemento, tipo, funzione) {
-    elemento.addEventListener(tipo, funzione);
-}
 
-let aperto = false;
-const diamante = document.getElementById("diamante");
-const menuContent = document.getElementById("menu-content");
-const submitBtn = document.getElementById("submit");
-
-// Clic sul diamante per aprire/chiudere
-aggiungiEvento(diamante, "click", function() {
-    if (!aperto) {
-        diamante.classList.add("menu-aperto");
-        aperto = true;
-    } else {
-        diamante.classList.remove("menu-aperto");
-        aperto = false;
+    function aggiungiEvento(elemento, tipo, funzione) {
+        elemento.addEventListener(tipo, funzione);
     }
-});
 
-// Ferma la propagazione dei click dentro il menu
-aggiungiEvento(menuContent, "click", function(event) {
-    event.stopPropagation();
-});
+    let aperto = false;
+    const diamante = document.getElementById("diamante");
+    const menuContent = document.getElementById("menu-content");
 
-// Pulsante invio
-aggiungiEvento(submitBtn, "click", async function(event){
-    event.stopPropagation();
-    
-    const latInput = document.getElementById("Latitudine").value;
-    const lngInput = document.getElementById("Longitudine").value;
-    console.log("Input LAT/LNG:", latInput, lngInput);
-    
-    if (!latInput || !lngInput) {
-        alert("RILEVA POSIZIONE PRIMA!");
-        return;
-    }
-    
-    const formData = new URLSearchParams();  // ← URLSearchParams!
-    formData.append('nome', document.getElementById("nome").value);
-    formData.append('tipologia', document.getElementById("Tipo").value);
-    formData.append('datapiazzamento', document.getElementById("DataPiazzamento").value);
-    formData.append('Latitudine', latInput);
-    formData.append('Longitudine', lngInput);
-    
-    console.log("Invio:", Object.fromEntries(formData));
-    
-    try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbw7szDXcDUg58l-uePkau2qIwV9TJF9oUrYNP2E3nQT42vTBAX1PXJgMLAttzMlq7QX/exec', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},  // ← OBBLIGATORIO
-            body: formData
-        });
-        const result = await response.json();
-        console.log("Server:", result);
-        
-        if (result.result === 'success') {
-            alert('Albero salvato riga ' + result.row + '!');
-            document.getElementById("nome").value = '';
-            document.getElementById("Tipo").value = '';
-            document.getElementById("DataPiazzamento").value = '';
-            document.getElementById("Latitudine").value = '';
-            document.getElementById("Longitudine").value = '';
+    // Clic sul diamante per aprire/chiudere
+    aggiungiEvento(diamante, "click", function() {
+        if (!aperto) {
+            diamante.classList.add("menu-aperto");
+            aperto = true;
         } else {
-            alert('Errore: ' + result.error);
+            diamante.classList.remove("menu-aperto");
+            aperto = false;
         }
-    } catch(error) {
-        console.error(error);
-        alert('Errore: ' + error);
-    }
-});
-    rilevaPosizione();
+    });
+
+    // Ferma la propagazione dei click dentro il menu
+    aggiungiEvento(menuContent, "click", function(event) {
+        event.stopPropagation();
+    });
 </script>
 
 </body>
