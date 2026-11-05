@@ -190,6 +190,9 @@ html, body {
 
             // Prepara i dati da inviare
             const formData = new URLSearchParams();
+            formData.append('nome', document.getElementById("nome").value);
+            formData.append('tipologia', document.getElementById("Tipo").value);
+            formData.append('datapiazzamento', document.getElementById("DataPiazzamento").value);
             formData.append('Latitudine', lat);
             formData.append('Longitudine', lng);
 
@@ -202,7 +205,11 @@ html, body {
                 const result = await response.json();
                 console.log("Server:", result);
                 
-                if (result.result === 'success')
+                if (result.result === 'success') {
+                    // Pulisci i campi se desideri
+                    document.getElementById("nome").value = '';
+                    document.getElementById("Tipo").value = '';
+                    document.getElementById("DataPiazzamento").value = '';
                 } else {
                     alert('Errore dal server: ' + result.error);
                 }
