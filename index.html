@@ -190,9 +190,6 @@ html, body {
 
             // Prepara i dati da inviare
             const formData = new URLSearchParams();
-            formData.append('nome', document.getElementById("nome").value);
-            formData.append('tipologia', document.getElementById("Tipo").value);
-            formData.append('datapiazzamento', document.getElementById("DataPiazzamento").value);
             formData.append('Latitudine', lat);
             formData.append('Longitudine', lng);
 
@@ -205,12 +202,7 @@ html, body {
                 const result = await response.json();
                 console.log("Server:", result);
                 
-                if (result.result === 'success') {
-                    alert('Albero salvato con successo alla riga ' + result.row + '!');
-                    // Pulisci i campi se desideri
-                    document.getElementById("nome").value = '';
-                    document.getElementById("Tipo").value = '';
-                    document.getElementById("DataPiazzamento").value = '';
+                if (result.result === 'success')
                 } else {
                     alert('Errore dal server: ' + result.error);
                 }
